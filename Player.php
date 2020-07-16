@@ -28,7 +28,8 @@ class Player
 					width		:46px;
 					height		:44px;
 					text-align	:center;
-					background-color:#dddbdb;
+					color		:#FFF;
+					/*background-color:#dddbdb;*/
 					"
 				>
 				<ifOverload
@@ -45,8 +46,8 @@ class Player
 						но годной для более медленного интернета.</marquee>
 					</ifRU>
 				</ifOverload>
-				<recordAudioData
-					class="block no-select border"
+				<recordLabelAudioMeta
+					class="block no-select"
 					style="
 						text-align	:center;
 						width		:42px;
@@ -58,9 +59,8 @@ class Player
 					<recordLabel
 						class="block border"
 						style="
-							color		: #000;
 							/*background-color: #282828;*/
-							background-color: #FFF;
+							/*background-color: #FFF;*/
 							/*border-radius	: 100%;*/
 							width		: 38px;
 							height		: 38px;
@@ -80,22 +80,22 @@ class Player
 							>▷
 						</ifRU>
 					</recordLabel>
-				</recordAudioData>
+				</recordLabelAudioMeta>
 			</ifReady>
 			<ifPlaying
 				class="block cursor no-select"
 				onclick="objPlayer.stop();"
 				style="
-					color		:#000;
+					color		:#FFF;
 					display		:none;
 					width		:100%;
 					height		:100%;
 					text-align	:center;
-					background-color:#cbdff4;
+					/*background-color:#cbdff4;*/
 					"
 				>
 				<recordAudioData
-					class="block no-select border"
+					class="block no-select"
 					style="
 						text-align	:center;
 						width		:42px;
@@ -107,9 +107,9 @@ class Player
 					<recordLabel
 						class="block border"
 						style="
-							color		: #000;
+							/*color		: #000;*/
 							/*background-color: #282828;*/
-							background-color: #FFF;
+							/*background-color: #FFF;*/
 							/*border-radius	: 100%;*/
 							width		: 38px;
 							height		: 38px;
@@ -122,12 +122,12 @@ class Player
 						<ifEN
 							title="Press to stop playing."
 							>
-							||
+							□
 						</ifEN>
 						<ifRU
 							title="Нажмите чтобы остановить воспроизведение."
 							>
-							||
+							□
 						</ifRU>
 					</recordLabel>
 				</recordAudioData>
@@ -193,23 +193,21 @@ class Player
 					<marquee>"Эта радиостанция сейчас недоступна. Возможно она очень далеко, перегружена или отдыхает. 
 					Пока станция недоступна, попробуйте послушать другую.</marquee>
 				</ifRU>
-				
 			</ifNoConnection>';
 			}
 		KIIM::objFinish($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
 		}
 	public static function strHTML($_objKIIM, $_strAudio)
 		{
-		$objKIIM=$_objKIIM;unset($_objKIIM);
-		$objKIIM=KIIM::objStart($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
-
-		$objShader=new Player($objKIIM, $_strAudio);
-
-		KIIM::objFinish($objKIIM, array('_strClass'=>__CLASS__, '_strMethod'=>__FUNCTION__, '_strMessage'=>''));
+		$objShader=new Player($_objKIIM, $_strAudio);
 		return $objShader->strHTML;
 		}
 	public static function strIndicatorTop()
 		{
+		//Новый год  🎄🎅
+		//✰✰
+		//★
+		//🌠
 		$str='
 		<playerControlAlwaysVisible
 			id="playerControlAlwaysVisible"
@@ -217,7 +215,7 @@ class Player
 			style="	
 				text-align	:center;
 				height		:100%;
-				width		:62px;
+				width		:20px;
 				background-color:#e3e3e3;
 				margin-right	:1px;
 			"
@@ -254,11 +252,15 @@ class Player
 					background-color:yellow;
 					"
 				>
-				<ifRU>
-					Стоп
+				<ifRU 
+					title="Для отмены загрузки радио станции нажмите."
+					>
+					☒
 				</ifRU>
-				<ifEN>
-					Stop
+				<ifEN
+					title="To stop loading this audio stream just press."
+					>
+					☒
 				</ifEN>
 			</ifLoadingAudio>
 			<ifLoadingAudio
@@ -276,12 +278,11 @@ class Player
 					"
 				>
 				<ifRU>
-					<marquee>Подключаюсь к радиостанции.... Нажмите чтобы отменить загрузку.</marquee>
+					Подключаюсь к радиостанции.... Нажмите чтобы отменить загрузку.
 				</ifRU>
 				<ifEN>
-					<marquee>Loading.... Press to stop.</marquee>
+					Loading.... Press to stop.
 				</ifEN>
-				
 			</ifLoadingAudio>
 			<ifPlaying
 				class="block cursor layer_3_2 no-select"
@@ -296,11 +297,15 @@ class Player
 					"
 				>'.
 				PlayerEventIndicator::strHTML().
-				'<ifRU>
-					Стоп
+				'<ifRU 
+					title="Для остановки воспроизведения нажмите."
+					>
+					■
 				</ifRU>
-				<ifEN>
-					Stop
+				<ifEN
+					title="To stop plaing this audio stream just press."
+					>
+					■
 				</ifEN>
 			</ifPlaying>
 			<ifPlaying
@@ -314,8 +319,7 @@ class Player
 					color		:#fff;
 					display		:none;
 					height		:40px;
-					line-height	:21px;
-					text-align	:center;
+					text-align	:left;
 					background-color:#6fb6ff;
 					"
 				>
@@ -332,11 +336,10 @@ class Player
 				style="
 					display		:none;
 					height		:40px;
-					line-height	:40px;
 					text-align	:center;
 					background-color:rgba(255,255,255,0.82);
 					"
-				>
+				>⚠
 			</ifNoConnection>
 			<ifNoConnection
 				class="abs cursor layer_3_2 no-select"
@@ -346,7 +349,6 @@ class Player
 					left		:0px;
 					display		:none;
 					height		:40px;
-					line-height	:40px;
 					text-align	:center;
 					background-color:rgba(245, 178, 178, 0.82);
 					width		:100vw;
@@ -362,22 +364,26 @@ class Player
 			</ifNoConnection>
 			<ifStopped
 				class="block cursor layer_3_2 no-select"
-				onclick="objPlayer.stop();"
+				onclick="
+					var objPlayerIndicatorMembrane			=this.nextElementSibling;
+					objPlayer.objAudio.src				=b64clr(objPlayerIndicatorMembrane.getAttribute(\'playerId\'));
+					objPlayer.objAudio.play();
+					"
 				style="
 					color		:#fff;
 					display		:none;
 					height		:20px;
-					line-height	:21px;
 					text-align	:center;
-					background-color:#6fb6ff;
+					line-height	:19px;
+					background-color:green;
 					"
 				>'.
 				PlayerEventIndicator::strHTML().
 				'<ifRU>
-					Остановлено
+					▷
 				</ifRU>
 				<ifEN>
-					Stoped
+					▷
 				</ifEN>
 			</ifStopped>
 			<ifStopped
@@ -461,29 +467,29 @@ class Player
 
 					objPlayer.objCurrentBlock.className	+=' loadingAudio';
 					console.log('[=^]EDRO: Finish get PLayer.loadStart().');
-					objPlayer.objDebugString.innerHTML='objPlayer.objAudio.onloadstart .bIzWhileHumanEvent=false;';
+					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onloadstart .bIzWhileHumanEvent=false;';
 					objPlayer.bIzWhileHumanEvent=false;
 					}
 				this.objAudio.onwaiting=function()
 					{
-					objPlayer.objDebugString.innerHTML='objPlayer.objAudio.onWaiting';
+					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onWaiting';
 					console.log('EDRO: Get PLayer.onWaiting().');
 					console.log('EDRO: Trying to load().');
 					objPlayer.objAudio.load();
 					objPlayer.bIzWhileHumanEvent=false;
-					objPlayer.objDebugString.innerHTML='objPlayer.objAudio.onWaiting .bIzWhileHumanEvent=false;';
+					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onWaiting .bIzWhileHumanEvent=false;';
 					console.log('EDRO: Finish get PLayer.onWaiting().');
 					}
 				this.objAudio.oncanplay=function()
 					{
-					objPlayer.objDebugString.innerHTML='objPlayer.objAudio.oncanplay';
+					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.oncanplay';
 					console.log('[^^]EDRO: Get PLayer.CanPlay().');
 
 					console.log('[=>]EDRO: Run Player.webAudio.api.play() .');
 					objPlayer.objAudio.play();
 
 					console.log('EDRO: Finish get PLayer.CanPlay().');
-					objPlayer.objDebugString.innerHTML='objPlayer.objAudio.oncanplay .bIzWhileHumanEvent=false;';
+					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.oncanplay .bIzWhileHumanEvent=false;';
 					objPlayer.bIzWhileHumanEvent=false;
 					}
 				this.objAudio.oncanplaythrough=function()
@@ -493,7 +499,7 @@ class Player
 					}
 				this.objAudio.onplaying=function()
 					{
-					objPlayer.objDebugString.innerHTML='objPlayer.objAudio.onPlaying';
+					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onPlaying';
 					console.log('[=>]EDRO: Get PLayer.onPlaying().');
 					objKIIM_StatisticalMembrane._stop();
 					objPlayer.bIzPlayedOnceEvent=true;
@@ -508,17 +514,17 @@ class Player
 						objPlayer.objCurrentBlock.className	+=' playing';
 						}
 					console.log('[=>]EDRO: Finish get PLayer.onPlaying().');
-					objPlayer.objDebugString.innerHTML='objPlayer.objAudio.onPlaying bIzWhileHumanEvent=false';
+					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onPlaying bIzWhileHumanEvent=false';
 					objPlayer.bIzWhileHumanEvent=false;
 					}
 				this.objAudio.onended=function()
 					{
-					objPlayer.objDebugString.innerHTML='objPlayer.objAudio.onEnded';
+					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onEnded bIzWhileHumanEvent=false';
 					console.log('[=>]EDRO: Get PLayer.onEnded.');
 					}
 				this.objAudio.onpause=function()
 					{
-					objPlayer.objDebugString.innerHTML='objPlayer.objAudio.onPause start->';
+					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onPause start->';
 					console.log('[==]EDRO: Get Player.Pause()');
 					//console.log(objPlayer.objAudio);
 					objPlayer.objVisibleControls.classList.remove('loadingAudio');
@@ -528,14 +534,14 @@ class Player
 					objPlayer.objCurrentBlock	=document.getElementById(objPlayer.strCurrentID);
 					if(objPlayer.objCurrentBlock)
 						{
-						objPlayer.objDebugString.innerHTML='objPlayer.objAudio.onPause currentBlock->';
+						objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onPause currentBlock->';
 						console.log('[==]EDRO: Finish currentBlock');
 						objPlayer.objCurrentBlock.classList.remove('loadingAudio');
 						objPlayer.objCurrentBlock.classList.remove('playing');
 						objPlayer.objCurrentBlock.classList.remove('errorAudio');
 						if(objPlayer.bIzWhileHumanEvent==false)
 							{
-							objPlayer.objDebugString.innerHTML='objPlayer.objAudio.onPause currentBlock->bIzWhileHumanEvent==false';
+							objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onPause currentBlock->bIzWhileHumanEvent==false';
 							console.log('[==]EDRO: Finish currentBlock human event');
 							if(objPlayer.bIzPlayedOnceEvent)
 								{
@@ -549,13 +555,13 @@ class Player
 							console.log('[=!^]EDRO: Run Player.webAudio.api.load(). Trying to fix connction autoatically.');
 
 							objPlayer.objAudio.load();
-							objPlayer.objDebugString.innerHTML='objPlayer.objAudio.onPause->objPlayer.bIzWhileHumanEvent->objPlayer.objAudio.load();';
+							objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onPause->objPlayer.bIzWhileHumanEvent->objPlayer.objAudio.load();';
 							//objPlayer.objAudio.play();
 							//objPlayer.play();
 							}
 						else //isHumanEvent
 							{
-							objPlayer.objDebugString.innerHTML='objPlayer.objAudio.onPause->objPlayer.!bIzWhileHumanEvent->objPlayer.src drop;';
+							objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onPause->objPlayer.!bIzWhileHumanEvent->objPlayer.src drop;';
 							console.log('[==]EDRO: Finish get human event Player.Pause()');
 							objPlayer.bIzNeedToBeStoppedEvent	=true;
 							objPlayer.objAudio.src			='';
@@ -563,14 +569,14 @@ class Player
 						}
 					console.log('[==]EDRO: Finish get Player.Pause()');
 					objPlayer.objVisibleControls.className	+=' stopped';
-					objPlayer.objDebugString.innerHTML='objPlayer.objAudio.onPause end start->objPlayer.bIzWhileOnHumanEvent=false';
+					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onPause end start->objPlayer.bIzWhileOnHumanEvent=false';
 					objPlayer.bIzWhileOnHumanEvent=false;
 					}
 				this.objAudio.onerror=function()
 					{
-					objPlayer.objDebugString.innerHTML='objPlayer.objAudio.onError start->';
+					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onError start->';
 					objKIIM_StatisticalMembrane._stop();
-					objPlayer.objDebugString.innerHTML='objPlayer.objAudio.onError objKIIM_StatisticalMembrane._stop()->';
+					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onError objKIIM_StatisticalMembrane._stop()->';
 					objPlayer.objVisibleControls.classList.remove('stopped');
 					objPlayer.objVisibleControls.classList.remove('loadingAudio');
 					objPlayer.objVisibleControls.classList.remove('playing');
@@ -586,14 +592,14 @@ class Player
 
 						if(objPlayer.bIzNeedToBeStoppedEvent)
 							{
-							objPlayer.objDebugString.innerHTML='objPlayer.objAudio.onError objPlayer.objPlayingBlock  objPlayer.bIzNeedToBeStoppedEvent=true->';
+							objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onError objPlayer.objPlayingBlock  objPlayer.bIzNeedToBeStoppedEvent=true->';
 							console.log('[==1]EDRO: Complete human event Player.Pause()');
 							objPlayer.objPlayingBlock.classList.remove('errorAudio');
 							objPlayer.objVisibleControls.className	+=' stopped';
 							}
 						else
 							{
-							objPlayer.objDebugString.innerHTML='objPlayer.objAudio.onError objPlayer.objPlayingBlock  objPlayer.bIzNeedToBeStoppedEvent=false->';
+							objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onError objPlayer.objPlayingBlock  objPlayer.bIzNeedToBeStoppedEvent=false->';
 							console.log('[==]EDRO: get error event');
 							objPlayer.objPlayingBlock.className	+=' errorAudio';
 							}
@@ -603,7 +609,7 @@ class Player
 						console.log('[==2]EDRO: Complete human event Player.Pause()');
 						objPlayer.objVisibleControls.classList.remove('errorAudio');
 						objPlayer.bIzNeedToBeStoppedEvent=false;
-						objPlayer.objDebugString.innerHTML='objPlayer.objAudio.onError objPlayer.bIzNeedToBeStoppedEvent=false; was true flag->';
+						objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onError objPlayer.bIzNeedToBeStoppedEvent=false; was true flag->';
 						return true;
 						}
 					objPlayer.objVisibleControls.className	+=' errorAudio';
@@ -616,17 +622,17 @@ class Player
 
 						console.log('[=^v+]EDRO: Run Player.webAudio.api.load(). Trying to resume. ');
 						objPlayer.objAudio.load();
-						objPlayer.objDebugString.innerHTML='objPlayer.objAudio.onError bIzPlayedOnce>Event=true flag objPlayer.objAudio.load()->';
+						objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onError bIzPlayedOnce>Event=true flag objPlayer.objAudio.load()->';
 						}
 					console.log('[=!^x]EDRO: Finish get Player.error(). Error is unfixable.');
-					objPlayer.objDebugString.innerHTML='objPlayer.objAudio.onError dropHumanEvent flag->';
+					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onError dropHumanEvent flag->';
 					objPlayer.bIzWhileOnHumanEvent=false;
 					}
 				this.objAudio.onstalled=function()
 					{
-					objPlayer.objDebugString.innerHTML='objPlayer.objAudio.onStalled';
+					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onStalled';
 					console.log('[=>]EDRO: Get PLayer.onStalled.');
-					objPlayer.objDebugString.innerHTML='objPlayer.objAudio.onStalled-> .load()';
+					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onStalled-> .load()';
 					objPlayer.objAudio.load();
 					}
 				this.objAudio.onabort=function()
@@ -635,21 +641,21 @@ class Player
 					console.log('[=x]EDRO: Get Player.abort()');
 					console.log('[=x]EDRO: Finish get Player.abort().');
 					objPlayer.bIzWhileHumanEvent=false;
-					objPlayer.objDebugString.innerHTML='objPlayer.objAudio.onAbort dropHumanEvent flag->';
+					//objPlayer.objDebugString.innerHTML='objPlayer.objAudio.onAbort dropHumanEvent flag->';
 					}
 				this.objAudio.onsuspend=function()
 					{
-					objPlayer.objDebugString.innerHTML='objPlayer.objAudio.onSuspend';
+					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onSuspend';
 					console.log('[=>]EDRO: Get PLayer.onSuspend.');
-					objPlayer.objDebugString.innerHTML='objPlayer.objAudio.onSuspend-> .load()';
-					objPlayer.objAudio.load();
+					objPlayer.objDebugString.innerHTML+='objPlayer.objAudio.onSuspend-> .huy()';
+					objPlayer.objAudio.play();
 					}
 				console.log('[=^+v]EDRO: Finish run Player.constructor().');
 				}
 			play(obj, strAudio)
 				{
 				console.log('[=>]EDRO: Run Player.play().');
-				objPlayer.objDebugString.innerHTML='objPlayer.Play->';
+				objPlayer.objDebugString.innerHTML+='objPlayer.Play->';
 				objPlayer.objVisibleControlsPlaying.innerHTML='';
 				objPlayer.bIzWhileHumanEvent	=true;
 				objPlayer.bIzPlayedOnceEvent	=false;
@@ -700,7 +706,7 @@ class Player
 			stop(strIsHumanOr='Unknown')
 				{
 				console.log('[==]EDRO: Run Player.stop() .');
-				objPlayer.objDebugString.innerHTML='objPlayer.Stop->';
+				objPlayer.objDebugString.innerHTML+='objPlayer.Stop->';
 				objPlayer.bIzWhileHumanEvent		=true;
 				objPlayer.bIzPlayedOnceEvent		=false;
 				objPlayer.bIzNeedToBeStoppedEvent	=true;
@@ -714,24 +720,24 @@ class Player
 			updateOnReload()
 				{
 				console.log('[(><)]EDRO: Run Player.updateOnReload() .');
-				objPlayer.objDebugString.innerHTML='objPlayer.updateOnReload->';
+				objPlayer.objDebugString.innerHTML+='objPlayer.updateOnReload->';
 				if(objPlayer.objVisibleControls.classList.contains('playing'))
 					{
 				objPlayer.objDebugString.innerHTML='objPlayer. has playing flag->';
 					objPlayer.objCurrentBlock	=document.getElementById(objPlayer.strCurrentID);
 					if(objPlayer.objCurrentBlock)
 						{
-						objPlayer.objDebugString.innerHTML='objPlayer. is current block->';
+						objPlayer.objDebugString.innerHTML+='objPlayer. is current block->';
 						objPlayer.objCurrentBlock.className	+=' playing';
 						}
 					}
 				if(objPlayer.objVisibleControls.classList.contains('loadingAudio'))
 					{
-					objPlayer.objDebugString.innerHTML='objPlayer. has loadingAudio block->';
+					objPlayer.objDebugString.innerHTML+='objPlayer. has loadingAudio block->';
 					objPlayer.objCurrentBlock	=document.getElementById(objPlayer.strCurrentID);
 					if(objPlayer.objCurrentBlock)
 						{
-						objPlayer.objDebugString.innerHTML='objPlayer. adding loadingAudio flag to current block->';
+						objPlayer.objDebugString.innerHTML+='objPlayer. adding loadingAudio flag to current block->';
 						objPlayer.objCurrentBlock.className	+=' loadingAudio';
 						}
 					}
